@@ -5,7 +5,7 @@
         public int index { get; set; } = index;
 
         public override string ToString() {
-            return "no." +  index + "\tv: " + value + "\tw:" + weight;
+            return "no." +  index + "\tv: " + value + "\tw:" + weight + "\r\n";
         }
     }
 }

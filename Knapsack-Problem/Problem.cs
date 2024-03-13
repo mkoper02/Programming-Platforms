@@ -1,5 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
+using System.Security;
 [assembly: InternalsVisibleTo("KnapsackTests")]
+[assembly: InternalsVisibleTo("KnapsackGui"), InternalsVisibleTo("GUI")]
 
 namespace KnapsackProblem {
     internal class Problem {
@@ -7,9 +9,7 @@ namespace KnapsackProblem {
 
         // constructor with random items and given seed
         public Problem(int n, int seed) {
-            if (n < 0) {
-                throw new NegativeNumberException("Given size is negative number! Size cannot be negative");
-            }
+            if (n < 0) throw new NegativeNumberException("Given size is negative number! Size cannot be negative");
 
             Random random = new(seed);
             items = new List<Item>(n);
@@ -52,6 +52,12 @@ namespace KnapsackProblem {
             }
 
             return new Result(result);
+        }
+
+        public override string ToString() {
+            string str = "";
+            foreach (Item item in items) str += item.ToString();
+            return str;
         }
     }
 

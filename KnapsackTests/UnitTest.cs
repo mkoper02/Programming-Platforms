@@ -108,7 +108,7 @@ namespace KnapsackTests {
         [DataRow(-1)]
         [DataRow(-5)]
         [DataRow(-10)]
-        public void NegativeSizeGiven__ThrowException(int size) {
+        public void HandlingInputExceptions_NegativeSizeGiven__ThrowException(int size) {
             Assert.ThrowsException<NegativeNumberException>(() => new Problem(size));
         }
 
@@ -117,7 +117,7 @@ namespace KnapsackTests {
         [DataRow(-1)]
         [DataRow(-5)]
         [DataRow(-10)]
-        public void NegativeCapacityGiven__ThrowException(int capacity) {
+        public void HandlingInputExceptions_NegativeCapacityGiven__ThrowException(int capacity) {
             Assert.ThrowsException<NegativeNumberException>(() => new Problem(5).Solve(capacity));
         }
     }

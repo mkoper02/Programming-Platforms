@@ -7,8 +7,8 @@
         public override string ToString() {
             string str = "Items: ";
             foreach (Item item in items) str += item.index.ToString() + " ";
-            str += "\nTotal value: " + total_value;
-            str += "\nTotal weight: " + total_weight;
+            str += "\r\nTotal value: " + total_value;
+            str += "\r\nTotal weight: " + total_weight;
 
             return str;
         }

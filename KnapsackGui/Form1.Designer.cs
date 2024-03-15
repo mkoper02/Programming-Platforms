@@ -48,7 +48,7 @@
             // labelSeed
             // 
             labelSeed.AutoSize = true;
-            labelSeed.Location = new Point(11, 62);
+            labelSeed.Location = new Point(11, 59);
             labelSeed.Name = "labelSeed";
             labelSeed.Size = new Size(42, 20);
             labelSeed.TabIndex = 1;
@@ -57,7 +57,7 @@
             // labelCapacity
             // 
             labelCapacity.AutoSize = true;
-            labelCapacity.Location = new Point(12, 115);
+            labelCapacity.Location = new Point(12, 109);
             labelCapacity.Name = "labelCapacity";
             labelCapacity.Size = new Size(66, 20);
             labelCapacity.TabIndex = 2;
@@ -65,35 +65,35 @@
             // 
             // textBoxNumbOfItems
             // 
-            textBoxNumbOfItems.Location = new Point(11, 32);
+            textBoxNumbOfItems.Location = new Point(11, 30);
             textBoxNumbOfItems.Name = "textBoxNumbOfItems";
-            textBoxNumbOfItems.Size = new Size(218, 27);
+            textBoxNumbOfItems.Size = new Size(218, 26);
             textBoxNumbOfItems.TabIndex = 3;
             // 
             // textBoxSeed
             // 
-            textBoxSeed.Location = new Point(11, 85);
+            textBoxSeed.Location = new Point(11, 81);
             textBoxSeed.Name = "textBoxSeed";
-            textBoxSeed.Size = new Size(218, 27);
+            textBoxSeed.Size = new Size(218, 26);
             textBoxSeed.TabIndex = 4;
             // 
             // textBoxCapacity
             // 
-            textBoxCapacity.Location = new Point(12, 138);
+            textBoxCapacity.Location = new Point(12, 131);
             textBoxCapacity.Name = "textBoxCapacity";
-            textBoxCapacity.Size = new Size(217, 27);
+            textBoxCapacity.Size = new Size(217, 26);
             textBoxCapacity.TabIndex = 5;
             // 
             // buttonRun
             // 
             buttonRun.ForeColor = SystemColors.ActiveCaptionText;
-            buttonRun.Location = new Point(12, 185);
+            buttonRun.Location = new Point(12, 176);
             buttonRun.Name = "buttonRun";
-            buttonRun.Size = new Size(217, 29);
+            buttonRun.Size = new Size(217, 28);
             buttonRun.TabIndex = 6;
             buttonRun.Text = "Run";
             buttonRun.UseVisualStyleBackColor = true;
-            buttonRun.Click += buttonRun_Click;
+            buttonRun.Click += ButtonRunClick;
             // 
             // labelInstance
             // 
@@ -107,7 +107,7 @@
             // labelResult
             // 
             labelResult.AutoSize = true;
-            labelResult.Location = new Point(180, 229);
+            labelResult.Location = new Point(180, 218);
             labelResult.Name = "labelResult";
             labelResult.Size = new Size(49, 20);
             labelResult.TabIndex = 10;
@@ -115,26 +115,26 @@
             // 
             // textBoxResult
             // 
-            textBoxResult.Location = new Point(12, 252);
+            textBoxResult.Location = new Point(12, 239);
             textBoxResult.Multiline = true;
             textBoxResult.Name = "textBoxResult";
-            textBoxResult.Size = new Size(217, 184);
+            textBoxResult.Size = new Size(217, 175);
             textBoxResult.TabIndex = 11;
             // 
             // textBoxInstance
             // 
-            textBoxInstance.Location = new Point(235, 32);
+            textBoxInstance.Location = new Point(235, 30);
             textBoxInstance.Multiline = true;
             textBoxInstance.Name = "textBoxInstance";
             textBoxInstance.ScrollBars = ScrollBars.Vertical;
-            textBoxInstance.Size = new Size(208, 404);
+            textBoxInstance.Size = new Size(208, 384);
             textBoxInstance.TabIndex = 12;
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(8F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(455, 443);
+            ClientSize = new Size(455, 421);
             Controls.Add(textBoxInstance);
             Controls.Add(textBoxResult);
             Controls.Add(labelResult);
@@ -148,6 +148,7 @@
             Controls.Add(labelNumbOfItems);
             Name = "Form1";
             Text = "Form1";
+            Load += Form1_Load;
             ResumeLayout(false);
             PerformLayout();
         }

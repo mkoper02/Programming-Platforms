@@ -1,34 +1,12 @@
 ﻿using System.Text.Json.Serialization;
 
 namespace ZeldaApi.Schemas {
-    internal class Material {
-        [JsonPropertyName("name")]
-        public string Name { get; set; } = null!;
-
-        [JsonPropertyName("id")]
-        public int Id { get; set; }
-
-        [JsonPropertyName("category")]
-        public string Category { get; set; } = null!;
-
-        [JsonPropertyName("description")]
-        public string Description { get; set; } = null!;
-
-        [JsonPropertyName("image")]
-        public string ImageUrl { get; set; } = null!;
-
-        [JsonPropertyName("common_locations")]
-        public List<string>? CommonLocations { get; set; }
-
+    internal class Material : SchemaBase {
         [JsonPropertyName("hearts_recovered")]
         public float HeartsRevocered { get; set; }
 
         [JsonPropertyName("cooking_effect")]
-        public string? CookingEffect { get; set; }
-
-        [JsonPropertyName("dlc")]
-        public bool Dlc { get; set; }
-        
+        public string? CookingEffect { get; set; }        
 
         public override string ToString() {
             string s = $"ID: {Id},\r\nName: {Name},\r\nCategory: {Category},\r\nDescription: {Description},\r\n";

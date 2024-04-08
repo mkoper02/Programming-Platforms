@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Text.Json;
 using ZeldaApi.Schemas;
 
@@ -5,6 +6,9 @@ namespace ZeldaApi {
     public partial class FormZelda : Form {
 
         private readonly HttpClient _client;
+        private string? _url;
+
+        //public 
 
         public FormZelda() {
             InitializeComponent();
@@ -12,34 +16,50 @@ namespace ZeldaApi {
         }
 
         private async void BtnDownloadClick(object sender, EventArgs e) {
-            string url = "https://botw-compendium.herokuapp.com/api/v3/compendium/entry/165";
-            //url = "https://botw-compendium.herokuapp.com/api/v3/compendium/category/creatures";
+            // check if any item is selected
+            if (listBoxSchemas.SelectedIndex == -1) {
+                MessageBox.Show("Please select an Item first!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-            string response = await _client.GetStringAsync(url);
+            // get response from api
+            string response = await _client.GetStringAsync(_url);
 
             // Remove "data:" from json file
             response = response.Remove(0, 8);
             response = response.Remove(response.Length - 2);
 
+            if (listBoxSchemas.SelectedIndex == 0) DisplaySelected<Creature>(response);
+            else if (listBoxSchemas.SelectedIndex == 1) DisplaySelected<Equipment>(response);
+            else if (listBoxSchemas.SelectedIndex == 2) DisplaySelected<Material>(response);
+            else if (listBoxSchemas.SelectedIndex == 3) DisplaySelected<Monster>(response);
+            else if (listBoxSchemas.SelectedIndex == 4) DisplaySelected<Treasure>(response);            
+        }
 
-            //List<Creature> creatures = JsonSerializer.Deserialize<List<Creature>>(response);
-            //List<Treasure> treasures = JsonSerializer.Deserialize<List<Treasure>>(response);
-            //List<Monster> monsters = JsonSerializer.Deserialize<List<Monster>>(response);
-            //List<Material> materials = JsonSerializer.Deserialize<List<Material>>(response);
-            //List<Equipment> equipment = JsonSerializer.Deserialize<List<Equipment>>(response);
+        private void DisplaySelected<T>(string response) where T : SchemaBase {
+            IEnumerable<T>? deserializedList = JsonSerializer.Deserialize<IEnumerable<T>>(response);
+            var orderedDeserializedList = deserializedList.OrderBy(r => r.Id);
 
-            //foreach (var creature in creatures) {
-            //    textBoxResponse.Text += creature.ToString() + "\r\n\r\n";
-            //}
+            dataGridViewMain.Rows.Clear();
 
+            foreach (var item in orderedDeserializedList) {
+                dataGridViewMain.Rows.Add(item.Id, item.Name, item.Category);
+            }
 
-            //Creature creature = JsonSerializer.Deserialize<Creature>(response);
-            //Treasure treasure = JsonSerializer.Deserialize<Treasure>(response);
-            //Monster monster = JsonSerializer.Deserialize<Monster>(response);
-            Material material = JsonSerializer.Deserialize<Material>(response);
-            //Equipment equipment = JsonSerializer.Deserialize<Equipment>(response);
+            pictureBox1.Load(orderedDeserializedList.First().ImageUrl);
+            //AddToTextBox(deserializeList);
+        }
 
-            textBoxResponse.Text += material;
+        private void AddToTextBox(IEnumerable list) {
+            textBoxResponse.Text = "";
+
+            foreach (var item in list) {
+                textBoxResponse.Text += item.ToString() + "\r\n\r\n";
+            }
+        }
+
+        private void ListBoxSchemasSelectedIndexChanged(object sender, EventArgs e) {
+            _url = $"https://botw-compendium.herokuapp.com/api/v3/compendium/category/{listBoxSchemas.GetItemText(listBoxSchemas.SelectedItem).ToLower()}";
         }
     }
 }

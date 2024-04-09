@@ -6,7 +6,7 @@ namespace ZeldaApi.Schemas {
         public List<string>? Drops { get; set; }
 
         public override string ToString() {
-            string s = $"ID: {Id},\r\nName: {Name},\r\nCategory: {Category},\r\nDescription: {Description},\r\n";
+            string s = $"ID: {Id},\r\nName: {Name},\r\nCategory: {Category},\r\nDescription: \"{Description}\",\r\n";
 
             if (CommonLocations != null) {
                 s += "Locations: ";
@@ -22,7 +22,7 @@ namespace ZeldaApi.Schemas {
                 s += "\r\n";
             }
 
-            s += $"Dlc: {Dlc}.\r\n";
+            s += $"Dlc: {Dlc}.";
 
             return s;
         }

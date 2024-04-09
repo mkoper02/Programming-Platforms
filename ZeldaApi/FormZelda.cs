@@ -8,8 +8,6 @@ namespace ZeldaApi {
         private readonly HttpClient _client;
         private string? _url;
 
-        //public 
-
         public FormZelda() {
             InitializeComponent();
             _client = new HttpClient();
@@ -24,16 +22,13 @@ namespace ZeldaApi {
 
             // get response from api
             string response = await _client.GetStringAsync(_url);
-
-            // Remove "data:" from json file
-            response = response.Remove(0, 8);
-            response = response.Remove(response.Length - 2);
+            response = AlterJson(response);
 
             if (listBoxSchemas.SelectedIndex == 0) DisplaySelected<Creature>(response);
             else if (listBoxSchemas.SelectedIndex == 1) DisplaySelected<Equipment>(response);
             else if (listBoxSchemas.SelectedIndex == 2) DisplaySelected<Material>(response);
             else if (listBoxSchemas.SelectedIndex == 3) DisplaySelected<Monster>(response);
-            else if (listBoxSchemas.SelectedIndex == 4) DisplaySelected<Treasure>(response);            
+            else if (listBoxSchemas.SelectedIndex == 4) DisplaySelected<Treasure>(response);
         }
 
         private void DisplaySelected<T>(string response) where T : SchemaBase {
@@ -42,24 +37,41 @@ namespace ZeldaApi {
 
             dataGridViewMain.Rows.Clear();
 
-            foreach (var item in orderedDeserializedList) {
+            foreach (var item in orderedDeserializedList) 
                 dataGridViewMain.Rows.Add(item.Id, item.Name, item.Category);
-            }
-
-            pictureBox1.Load(orderedDeserializedList.First().ImageUrl);
-            //AddToTextBox(deserializeList);
         }
 
-        private void AddToTextBox(IEnumerable list) {
-            textBoxResponse.Text = "";
+        private async void DataGridViewMainCellContentClick(object sender, DataGridViewCellEventArgs e) {
+            if (e.ColumnIndex == 3) return;
+            if (e.RowIndex < 0) return;
 
-            foreach (var item in list) {
-                textBoxResponse.Text += item.ToString() + "\r\n\r\n";
-            }
+            dataGridViewMain.CurrentRow.Selected = true;
+
+            var itemId = dataGridViewMain.Rows[e.RowIndex].Cells[0].Value;
+            string response = await _client.GetStringAsync($"https://botw-compendium.herokuapp.com/api/v3/compendium/entry/{itemId}");
+            response = AlterJson(response);
+
+            if (listBoxSchemas.SelectedIndex == 0) DisplayDetailInNewWindow<Creature>(response);
+            else if (listBoxSchemas.SelectedIndex == 1) DisplayDetailInNewWindow<Equipment>(response);
+            else if (listBoxSchemas.SelectedIndex == 2) DisplayDetailInNewWindow<Material>(response);
+            else if (listBoxSchemas.SelectedIndex == 3) DisplayDetailInNewWindow<Monster>(response);
+            else if (listBoxSchemas.SelectedIndex == 4) DisplayDetailInNewWindow<Treasure>(response);
+        }
+
+        private void DisplayDetailInNewWindow<T>(string response) where T : SchemaBase {
+            T? item = JsonSerializer.Deserialize<T>(response);
+            new FormDetails(item.ToString(), item.ImageUrl, item.Name).Show();
         }
 
         private void ListBoxSchemasSelectedIndexChanged(object sender, EventArgs e) {
             _url = $"https://botw-compendium.herokuapp.com/api/v3/compendium/category/{listBoxSchemas.GetItemText(listBoxSchemas.SelectedItem).ToLower()}";
+        }
+
+        private static string AlterJson(string json) {
+            json = json.Remove(0, 8);
+            json = json.Remove(json.Length - 2);
+
+            return json;
         }
     }
 }

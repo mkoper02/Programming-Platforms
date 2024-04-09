@@ -6,7 +6,7 @@ namespace ZeldaApi.Schemas {
         public Properties Properties { get; set; } = null!;
 
         public override string ToString() {
-            string s = $"ID: {Id},\r\nName: {Name},\r\nCategory: {Category},\r\nDescription: {Description},\r\n";
+            string s = $"ID: {Id},\r\nName: {Name},\r\nCategory: {Category},\r\nDescription: \"{Description}\",\r\n";
 
             if (CommonLocations != null) {
                 s += "Locations: ";
@@ -15,7 +15,7 @@ namespace ZeldaApi.Schemas {
                 s += "\r\n";
             }
 
-            s += $"{Properties},\r\nDlc: {Dlc}.\r\n";
+            s += $"{Properties},\r\nDlc: {Dlc}.";
 
             return s;
         }
@@ -30,7 +30,7 @@ namespace ZeldaApi.Schemas {
 
 
         public override string ToString() {
-            return $"Properties:\r\n\tAttack: {Attack},\r\n\tDefense: {Defense}";
+            return $"Properties: attack: {Attack}, defense: {Defense}";
         }
     }
 }

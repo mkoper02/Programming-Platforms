@@ -9,7 +9,7 @@ namespace ZeldaApi.Schemas {
         public string? CookingEffect { get; set; }        
 
         public override string ToString() {
-            string s = $"ID: {Id},\r\nName: {Name},\r\nCategory: {Category},\r\nDescription: {Description},\r\n";
+            string s = $"ID: {Id},\r\nName: {Name},\r\nCategory: {Category},\r\nDescription: \"{Description}\",\r\n";
 
             if (CommonLocations != null) {
                 s += "Locations: ";
@@ -21,7 +21,7 @@ namespace ZeldaApi.Schemas {
             if (CookingEffect != "")
                 s += $"Cooking effect: {CookingEffect},\r\n";
 
-            s += $"Hearts recovered: {HeartsRevocered: 0.0},\r\nDlc: {Dlc}.\r\n";
+            s += $"Hearts recovered: {HeartsRevocered: 0.0},\r\nDlc: {Dlc}.";
 
             return s;
         }

@@ -16,7 +16,7 @@ namespace ZeldaApi.Schemas {
 
 
         public override string ToString() {
-            string s = $"ID: {Id},\r\nName: {Name},\r\nCategory: {Category},\r\nDescription: {Description},\r\nEdible: {Edible},\r\n";
+            string s = $"ID: {Id},\r\nName: {Name},\r\nCategory: {Category},\r\nDescription: \"{Description}\",\r\nEdible: {Edible},\r\n";
 
             if (CommonLocations != null) {
                 s += "Locations: ";
@@ -38,7 +38,7 @@ namespace ZeldaApi.Schemas {
                 s += "\r\n";
             }
 
-            s += $"Dlc: {Dlc}.\r\n";
+            s += $"Dlc: {Dlc}.";
 
             return s;
         }

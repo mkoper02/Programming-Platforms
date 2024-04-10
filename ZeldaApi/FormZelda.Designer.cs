@@ -26,13 +26,14 @@
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             btnDownload = new Button();
             listBoxSchemas = new ListBox();
-            button1 = new Button();
+            buttonFavourites = new Button();
             label1 = new Label();
             dataGridViewMain = new DataGridView();
             ItemID = new DataGridViewTextBoxColumn();
             Name = new DataGridViewTextBoxColumn();
             Category = new DataGridViewTextBoxColumn();
             Favourite = new DataGridViewCheckBoxColumn();
+            buttonSaveFavourites = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridViewMain).BeginInit();
             SuspendLayout();
             // 
@@ -43,7 +44,7 @@
             btnDownload.Name = "btnDownload";
             btnDownload.Size = new Size(210, 60);
             btnDownload.TabIndex = 0;
-            btnDownload.Text = "Download data";
+            btnDownload.Text = "Download Data";
             btnDownload.UseVisualStyleBackColor = true;
             btnDownload.Click += BtnDownloadClick;
             // 
@@ -63,15 +64,16 @@
             listBoxSchemas.TabIndex = 0;
             listBoxSchemas.SelectedIndexChanged += ListBoxSchemasSelectedIndexChanged;
             // 
-            // button1
+            // buttonFavourites
             // 
-            button1.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            button1.Location = new Point(12, 324);
-            button1.Name = "button1";
-            button1.Size = new Size(210, 60);
-            button1.TabIndex = 5;
-            button1.Text = "Show Favourites";
-            button1.UseVisualStyleBackColor = true;
+            buttonFavourites.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            buttonFavourites.Location = new Point(12, 392);
+            buttonFavourites.Name = "buttonFavourites";
+            buttonFavourites.Size = new Size(210, 60);
+            buttonFavourites.TabIndex = 5;
+            buttonFavourites.Text = "Show Favourites";
+            buttonFavourites.UseVisualStyleBackColor = true;
+            buttonFavourites.Click += ButtonFavouritesClick;
             // 
             // label1
             // 
@@ -106,7 +108,7 @@
             dataGridViewMain.RowHeadersVisible = false;
             dataGridViewMain.RowHeadersWidth = 51;
             dataGridViewMain.RowTemplate.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewMain.Size = new Size(565, 320);
+            dataGridViewMain.Size = new Size(565, 387);
             dataGridViewMain.TabIndex = 7;
             dataGridViewMain.CellContentClick += DataGridViewMainCellContentClick;
             // 
@@ -146,15 +148,27 @@
             Favourite.SortMode = DataGridViewColumnSortMode.Automatic;
             Favourite.Width = 125;
             // 
+            // buttonSaveFavourites
+            // 
+            buttonSaveFavourites.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            buttonSaveFavourites.Location = new Point(12, 324);
+            buttonSaveFavourites.Name = "buttonSaveFavourites";
+            buttonSaveFavourites.Size = new Size(210, 60);
+            buttonSaveFavourites.TabIndex = 8;
+            buttonSaveFavourites.Text = "Save Favourites";
+            buttonSaveFavourites.UseVisualStyleBackColor = true;
+            buttonSaveFavourites.Click += ButtonSaveFavouritesClick;
+            // 
             // FormZelda
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlDarkDark;
-            ClientSize = new Size(818, 398);
+            ClientSize = new Size(818, 463);
+            Controls.Add(buttonSaveFavourites);
             Controls.Add(dataGridViewMain);
             Controls.Add(label1);
-            Controls.Add(button1);
+            Controls.Add(buttonFavourites);
             Controls.Add(listBoxSchemas);
             Controls.Add(btnDownload);
             FormBorderStyle = FormBorderStyle.Fixed3D;
@@ -167,12 +181,13 @@
 
         private Button btnDownload;
         private ListBox listBoxSchemas;
-        private Button button1;
+        private Button buttonFavourites;
         private Label label1;
         private DataGridView dataGridViewMain;
         private DataGridViewTextBoxColumn ItemID;
         private DataGridViewTextBoxColumn Name;
         private DataGridViewTextBoxColumn Category;
         private DataGridViewCheckBoxColumn Favourite;
+        private Button buttonSaveFavourites;
     }
 }

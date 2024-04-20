@@ -13,6 +13,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KnapsackGui", "KnapsackGui\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZeldaApi", "ZeldaApi\ZeldaApi.csproj", "{749FE398-4D69-41FC-8311-F63020086347}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Threads", "Threads", "{C7BB3541-1055-486A-9FCA-33D95F646056}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Threads", "Threads\Threads\Threads.csproj", "{22726BB4-7BFD-4358-B7F9-B5A505E94C45}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Knapsacks", "Knapsacks", "{FAE4C208-9ED7-4C8F-BC38-A412E659E7F0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,9 +45,19 @@ Global
 		{749FE398-4D69-41FC-8311-F63020086347}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{749FE398-4D69-41FC-8311-F63020086347}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{749FE398-4D69-41FC-8311-F63020086347}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22726BB4-7BFD-4358-B7F9-B5A505E94C45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22726BB4-7BFD-4358-B7F9-B5A505E94C45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22726BB4-7BFD-4358-B7F9-B5A505E94C45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22726BB4-7BFD-4358-B7F9-B5A505E94C45}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C8D9BD35-4793-4A24-AD8B-FAB66EAEF709} = {FAE4C208-9ED7-4C8F-BC38-A412E659E7F0}
+		{931DD51D-864A-42C1-B161-50E66F2AF20D} = {FAE4C208-9ED7-4C8F-BC38-A412E659E7F0}
+		{0888F6E3-9E26-492C-8903-9E85608C83FC} = {FAE4C208-9ED7-4C8F-BC38-A412E659E7F0}
+		{22726BB4-7BFD-4358-B7F9-B5A505E94C45} = {C7BB3541-1055-486A-9FCA-33D95F646056}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FC00CD8F-45C0-472E-B165-BBFB1111CE85}

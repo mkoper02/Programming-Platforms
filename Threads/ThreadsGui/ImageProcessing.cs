@@ -1,19 +1,16 @@
 ﻿namespace ThreadsGui {
-    public class ImageProcessing(Bitmap Image, PictureBox Picture) {
-        public Bitmap Image = Image;
-        public PictureBox Picture = Picture;
-
-        public void InvertColors() {
+    public class ImageProcessing {
+        public static Bitmap InvertColors(Bitmap Image) {
             for (var i = 0; i < Image.Width; i++)
                 for (var j = 0; j < Image.Height; j++) {
                     var pixel = Image.GetPixel(i, j);
                     Image.SetPixel(i, j, Color.FromArgb(255 - pixel.R, 255 - pixel.G, 255 - pixel.B));
                 }
 
-            Picture.Image = Image;
+            return Image;
         }
 
-        public void Grayscale() {
+        public static Bitmap Grayscale(Bitmap Image) {
             for (var i = 0; i < Image.Width; i++)
                 for (var j = 0; j < Image.Height; j++) {
                     var pixel = Image.GetPixel(i, j);
@@ -21,10 +18,10 @@
                     Image.SetPixel(i, j, Color.FromArgb(avg, avg, avg));
                 }
 
-            Picture.Image = Image;
+            return Image;
         }
 
-        public void Thresholding(int value) {
+        public static Bitmap Thresholding(Bitmap Image, int value) {
             for (var i = 0; i < Image.Width; i++)
                 for (var j = 0; j < Image.Height; j++) {
                     var pixel = Image.GetPixel(i, j);
@@ -32,10 +29,10 @@
                     Image.SetPixel(i, j, avg > value ? Color.Black : Color.White);
                 }
 
-            Picture.Image = Image;
+            return Image;
         }
 
-        public void Sepia() {
+        public static Bitmap Sepia(Bitmap Image) {
             for (var i = 0; i < Image.Width; i++)
                 for (var j = 0; j < Image.Height; j++) {
                     var pixel = Image.GetPixel(i, j);
@@ -45,10 +42,10 @@
                     Image.SetPixel(i, j, Color.FromArgb(r > 255 ? 255 : r, g > 255 ? 255 : g, b > 255 ? 255 : b));
                 }
 
-            Picture.Image = Image;
+            return Image;
         }
 
-        public void Brightness(int value) {
+        public static Bitmap Brightness(Bitmap Image, int value) {
             for (var i = 0; i < Image.Width; i++)
                 for (var j = 0; j < Image.Height; j++) {
                     var pixel = Image.GetPixel(i, j);
@@ -58,37 +55,37 @@
                     Image.SetPixel(i, j, Color.FromArgb(r > 255 ? 255 : r, g > 255 ? 255 : g, b > 255 ? 255 : b));
                 }
 
-            Picture.Image = Image;
+            return Image;
         }
 
-        public void RedChannelColor() {
+        public static Bitmap RedChannelColor(Bitmap Image) {
             for (var i = 0; i < Image.Width; i++)
                 for (var j = 0; j < Image.Height; j++) {
                     var pixel = Image.GetPixel(i, j);
                     Image.SetPixel(i, j, Color.FromArgb(pixel.R, 0, 0));
                 }
 
-            Picture.Image = Image;
+            return Image;
         }
 
-        public void GreenChannelColor() {
+        public static Bitmap GreenChannelColor(Bitmap Image) {
             for (var i = 0; i < Image.Width; i++)
                 for (var j = 0; j < Image.Height; j++) {
                     var pixel = Image.GetPixel(i, j);
                     Image.SetPixel(i, j, Color.FromArgb(0, pixel.G, 0));
                 }
 
-            Picture.Image = Image;
+            return Image;
         }
 
-        public void BlueChannelColor() {
+        public static Bitmap BlueChannelColor(Bitmap Image) {
             for (var i = 0; i < Image.Width; i++)
                 for (var j = 0; j < Image.Height; j++) {
                     var pixel = Image.GetPixel(i, j);
                     Image.SetPixel(i, j, Color.FromArgb(0, 0, pixel.B));
                 }
 
-            Picture.Image = Image;
+            return Image;
         }
     }
 }

@@ -26,34 +26,32 @@ namespace ThreadsGui {
                 return;
             }
 
-            var threads = new Thread[4];
+            var functions = new[] {
+                ImageProcessing.InvertColors,
+                ImageProcessing.Grayscale,
+                (image) => ImageProcessing.Thresholding(image, 127),
+                ImageProcessing.RedChannelColor,
+            };
 
-            for (var i = 0; i < 4; i++) {
-                if (i == 0) {
-                    var image = new ImageProcessing(new Bitmap(_imgPath), TopLeftImg);
-                    threads[i] = new Thread(() => image.InvertColors());
-                }
+            var locations = new[] {
+                TopLeftImg,
+                TopRightImg,
+                BottomLeftImg,
+                BottomRightImg,
+            };
 
-                else if (i == 1) { 
-                    var image = new ImageProcessing(new Bitmap(_imgPath), TopRightImg);
-                    threads[i] = new Thread(() => image.Grayscale());
-                }
+            CountdownEvent countdown = new(locations.Length);
 
-                else if (i == 2) {
-                    var image = new ImageProcessing(new Bitmap(_imgPath), BottomLeftImg);
-                    threads[i] = new Thread(() => image.Thresholding(127));
-                }
+            for (var i = 0; i < locations.Length; i++) {
+                var index = i;
+                var image = new Bitmap(_imgPath);
 
-                else {
-                    var image = new ImageProcessing(new Bitmap(_imgPath), BottomRightImg);
-                    threads[i] = new Thread(() => image.RedChannelColor());
-                }
-
-                threads[i].Start();
+                new Thread(() => {
+                    var result = functions[index](image);
+                    locations[index].Invoke(new Action(() => locations[index].Image = result));
+                    countdown.Signal();
+                }).Start();
             }
-
-            foreach (var thread in threads)
-                thread.Join();
         }
     }
 }

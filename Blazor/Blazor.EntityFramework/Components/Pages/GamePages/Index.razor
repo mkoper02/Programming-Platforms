@@ -1,0 +1,27 @@
+﻿@page "/games"
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using Microsoft.EntityFrameworkCore
+@inject Blazor.EntityFramework.Data.ApplicationDbContext DB
+@attribute [StreamRendering]
+@rendermode InteractiveServer
+
+<PageTitle>Index</PageTitle>
+
+<h1>Index</h1>
+
+<p>
+    <a href="games/create">Create New</a>
+</p>
+
+<QuickGrid Class="table" Items="DB.Games">
+    <PropertyColumn Title="Game title" Property="game => game.Name" Sortable="true"/>
+    <PropertyColumn Title="Genre" Property="game => game.Genre" Sortable="true"/>
+    <PropertyColumn Title="Release Date" Property="game => game.ReleaseDate" Format="yyyy-MM-dd" Sortable="true"/>
+    <PropertyColumn Property="game => game.Rate" Sortable="true"/>
+
+    <TemplateColumn Context="game">
+        <a href="@($"games/details?id={game.Id}")">Details</a> |
+        <a href="@($"games/edit?id={game.Id}")">Edit</a> |
+        <a href="@($"games/delete?id={game.Id}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>

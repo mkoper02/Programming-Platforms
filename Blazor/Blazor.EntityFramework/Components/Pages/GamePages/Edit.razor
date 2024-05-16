@@ -1,0 +1,111 @@
+﻿@page "/Games/edit"
+@inject Blazor.EntityFramework.Data.ApplicationDbContext DB
+@using Blazor.EntityFramework.Components
+@inject NavigationManager NavigationManager
+@using Microsoft.EntityFrameworkCore
+
+<PageTitle>Edit</PageTitle>
+
+<h1>Edit</h1>
+
+<h4>Game</h4>
+<hr />
+@if (Game is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <EditForm method="post" Model="Game" OnValidSubmit="UpdateGame" FormName="edit" Enhance>
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <input type="hidden" name="Game.Id" value="@Game.Id" />
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name:</label>
+                    <InputText id="name" @bind-Value="Game.Name" class="form-control" />
+                    <ValidationMessage For="() => Game.Name" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="genre" class="form-label">Genre:</label>
+                    <InputText id="genre" @bind-Value="Game.Genre" class="form-control" />
+                    <ValidationMessage For="() => Game.Genre" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="releasedate" class="form-label">ReleaseDate:</label>
+                    <InputDate id="releasedate" @bind-Value="Game.ReleaseDate" class="form-control" />
+                    <ValidationMessage For="() => Game.ReleaseDate" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description:</label>
+                    <InputText id="description" @bind-Value="Game.Description" class="form-control" />
+                    <ValidationMessage For="() => Game.Description" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="rate" class="form-label">Rate:</label>
+                    <InputNumber id="rate" @bind-Value="Game.Rate" class="form-control" />
+                    <ValidationMessage For="() => Game.Rate" class="text-danger" />
+                </div>
+                <div class="mb-3">
+					<label for="url" class="form-label">Url:</label>
+					<InputText id="url" @bind-Value="Game.Url" class="form-control" />
+					<ValidationMessage For="() => Game.Url" class="text-danger" />
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </EditForm>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="/games">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromQuery]
+    public int Id { get; set; }
+
+    [SupplyParameterFromForm]
+    public Game? Game { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Game ??= await DB.Games.FirstOrDefaultAsync(m => m.Id == Id);
+
+        if (Game is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more details, see https://aka.ms/RazorPagesCRUD.
+    public async Task UpdateGame()
+    {
+        DB.Attach(Game!).State = EntityState.Modified;
+
+        try
+        {
+            await DB.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!GameExists(Game!.Id))
+            {
+                NavigationManager.NavigateTo("notfound");
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        NavigationManager.NavigateTo("/games");
+    }
+
+    bool GameExists(int id)
+    {
+        return DB.Games.Any(e => e.Id == id);
+    }
+}
